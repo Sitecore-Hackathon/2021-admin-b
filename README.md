@@ -5,5 +5,11 @@
 - [Entry form template](ENTRYFORM.md)
 - [Starter kit instructions](STARTERKIT_INSTRUCTIONS.md)
   
+  
+### Hello AdminB! 
+
+I've included my docker/.env file so you can use the same properties if you wish. Noteable changes:
+- SITECORE_VERSION=10.0.1-2004
+- ISOLATION=hyperv
 
 ### ⟹ [Insert your documentation here](ENTRYFORM.md) <<

@@ -9,7 +9,7 @@
 *.sicpackage
 
 # Ignore everything under docker
-/docker/*
+/docker/data/*
 
 #Ignore thumbnails created by Windows
 Thumbs.db

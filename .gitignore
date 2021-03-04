@@ -9,7 +9,22 @@
 *.sicpackage
 
 # Ignore everything under docker
-/docker/data/*
+docker/data/cm/*
+!docker/data/cm/.gitkeep
+docker/data/cd/*
+!docker/data/cd/.gitkeep
+docker/data/mssql/*
+!docker/data/mssql/.gitkeep
+docker/data/solr/*
+!docker/data/solr/.gitkeep
+
+/deploy/website/*
+!/deploy/website/.gitkeep
+/deploy/xconnect/*
+!/deploy/xconnect/.gitkeep
+
+/traefik/certs/*
+!/traefik/certs/.gitkeep
 
 #Ignore thumbnails created by Windows
 Thumbs.db

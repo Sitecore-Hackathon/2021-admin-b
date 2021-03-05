@@ -45,7 +45,7 @@ services:
     isolation: ${ISOLATION}
     ports:
       - "8984:8983"
-    image: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-solr:${SITECORE_VERSION}
+    image: ${SITECORE_DOCKER_REGISTRY}nonproduction/solr:8.4.0-${SITECORE_VERSION}
     volumes:
       - type: bind
         source: .\solr-data

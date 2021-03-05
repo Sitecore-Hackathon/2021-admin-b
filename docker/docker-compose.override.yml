@@ -28,6 +28,7 @@ services:
       - ./traefik:C:/etc/traefik
     depends_on:
       - cm
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
 
   mssql:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-mssql:${VERSION:-latest}
@@ -58,9 +59,9 @@ services:
     build:
       context: ./build/solr-init
       args:
-        BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-solr-init:${SITECORE_VERSION}
-        SXA_IMAGE: ${SITECORE_MODULE_REGISTRY}sxa-xp1-assets:${SXA_VERSION}
-
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-solr-init:${SITECORE_VERSION}
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
+        
   id:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-id:${VERSION:-latest}
     build:
@@ -71,6 +72,7 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
 
   cm:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-cm:${VERSION:-latest}
@@ -114,6 +116,7 @@ services:
       - ${HOST_LICENSE_FOLDER}:C:\license
       - ${LOCAL_DEPLOY_PATH}\xconnect:C:\deploy
     entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
 
   xdbsearchworker:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-xdbsearchworker:${VERSION:-latest}
@@ -125,6 +128,7 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment: 
       SITECORE_LICENSE_LOCATION: c:\license\
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
 
   xdbautomationworker:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-xdbautomationworker:${VERSION:-latest}
@@ -136,6 +140,7 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment: 
       SITECORE_LICENSE_LOCATION: c:\license\
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
 
   cortexprocessingworker:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-cortexprocessingworker:${VERSION:-latest}
@@ -147,3 +152,4 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment: 
       SITECORE_LICENSE_LOCATION: c:\license\
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}

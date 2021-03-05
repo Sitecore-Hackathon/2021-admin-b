@@ -353,12 +353,23 @@ function Show-HackLogo {
                       |h|a|c|k| |t|h|e| |e|x|p|e|r|i|e|n|c|e|!|
                       +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+
 
-
+"@ 
+    $adminb = @"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+                                                        #        
+                      ##   #####  #    # # #    #      #  #####  
+                     #  #  #    # ##  ## # ##   #     #   #    # 
+                    #    # #    # # ## # # # #  #    #    #####  
+                    ###### #    # #    # # #  # #   #     #    # 
+                    #    # #    # #    # # #   ##  #      #    # 
+                    #    # #####  #    # # #    # #       #####  
+                                             
+                                                                                                                                                                                                  
 "@  
     Clear-Host
     Write-Host $clock -ForegroundColor Cyan
     Write-Host $logo -ForegroundColor Red
     Write-Host $experience -ForegroundColor Magenta
+    Write-Host $adminb -ForegroundColor DarkGreen
 }
 
 Export-ModuleMember -Function *

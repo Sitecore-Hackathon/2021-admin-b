@@ -57,9 +57,10 @@ services:
     environment:
       SITECORE_SOLR_CONNECTION_STRING: http://solr:8983/solr
       SOLR_CORE_PREFIX_NAME: ${SOLR_CORE_PREFIX_NAME}
-    depends_on: solr
-      condition: solr_healthy
-      
+    depends_on: 
+      solr:
+        condition: service_healthy
+
   id:
     isolation: ${ISOLATION}
     image: ${SITECORE_DOCKER_REGISTRY}sitecore-id:${SITECORE_VERSION}

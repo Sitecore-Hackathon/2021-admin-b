@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LayoutService\NavigationContentsResolver.cs" />
+    <Compile Include="MovieService\MovieContentsResolver.cs" />
     <Compile Include="Templates.cs" />
   </ItemGroup>
   <PropertyGroup>

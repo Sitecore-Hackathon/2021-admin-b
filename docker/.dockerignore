@@ -4,7 +4,7 @@
 .vs
 .vscode
 build
-docker
+docker/
 packages
 **/bin/
 **/obj/

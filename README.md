@@ -1,4 +1,5 @@
 ![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
+
 # Sitecore Hackathon 2021
 
 - MUST READ: **[Submission requirements](SUBMISSION_REQUIREMENTS.md)**
@@ -6,10 +7,9 @@
 - [Starter kit instructions](STARTERKIT_INSTRUCTIONS.md)
   
   
-### Admin/B Team Instructions
+## Admin/B Team Instructions
 
-
-#### 10.1
+### 10.1
 
 If you've had this running before, make sure to run
 
@@ -28,12 +28,16 @@ This file can all be used to set images and isolation to match OS settings.
     
     SITECORE_VERSION=10.1.0-2004
     ISOLATION=process
- 
-#### Build
+### Developer Builds
+
 Buidling can be done by deploying the Website\HPP project.  This will deploy all projects to the CM and CD images, via the **docker\deploy\project** folder. If new modules are added, they should be added as refernces to the HPP project.
 
-#### TO DO
-Set up Sitecore CLI, serialization.
-Set up sample content (e.g from Helix Examples.)
+### Deserialization, etc
+
+To create the environment, including deserializing items, just run .\Start-Hackathon.ps1.   This will restore the Sitecore.CLI items, deserialize and publish.
+
+## TO DO List
+
+1. MSBUILD is commented out in solution Dockerfile, due to a build error. Fix this.  Workaround: publish HPP project manually.
 
 ### ⟹ [Insert your documentation here](ENTRYFORM.md) <<

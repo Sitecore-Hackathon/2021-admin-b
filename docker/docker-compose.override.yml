@@ -15,7 +15,7 @@ services:
   solution:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
     build:
-      context: .
+      context: ..
       args:
         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
         BUILD_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
@@ -167,7 +167,7 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment: 
       SITECORE_LICENSE_LOCATION: c:\license\
-    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
+    mem_limit: ${MEM_LIMIT_XDBSEARCH:-1GB}
 
   xdbautomationworker:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-xdbautomationworker:${VERSION:-latest}

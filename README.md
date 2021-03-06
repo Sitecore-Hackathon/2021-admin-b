@@ -1,7 +1,5 @@
 ![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
 
-# Sitecore Hackathon 2021
-
 ## Team name
 admin/b
 
@@ -40,21 +38,17 @@ Our project builds off of the Sitecore "Getting Started" Docker template which m
 ## Installation instructions
 ⟹ Write a short clear step-wise instruction on how to install your module.  
 
-If you've had this running before, make sure to run
-
-    cd docker
-    .\clean.ps1
     
 1. Rename \docker\env.user.sample to \docker\env.user to apply recommended memory settings. 
 
-    # Container memory limits
+    ```
     MEM_LIMIT_SQL=300MB
     MEM_LIMIT_CM=300MB
     MEM_LIMIT_SOLR=300MB
     MEM_LIMIT_ROLES=300MB
     MEM_LIMIT_XDBSEARCH=1GB
-    
-This file can all be used to set images and isolation to match OS settings.
+    ```
+This file can also be used to set images and isolation to match OS settings.
     
     SITECORE_VERSION=10.1.0-2004
     ISOLATION=process
@@ -64,6 +58,12 @@ This file can all be used to set images and isolation to match OS settings.
 4. ?? Open solution in Visual Studio and run build
 ...
 5. profit
+
+If you restart these steps, be sure to run this first:
+
+    cd docker
+    .\clean.ps1
+
 
 ### Configuration
 ⟹ If there are any custom configuration that has to be set manually then remember to add all details here.

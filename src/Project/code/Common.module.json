@@ -1,11 +1,11 @@
 {
     "namespace": "Project.Common",
-    "references": [""],
+    "references": ["Foundation.*", "Feature.*"],
     "items": {
         "includes": [
             {
-                "name": "layouts",
-                "path": "/sitecore/layout/layouts/project/common"
+                "name": "content",
+                "path": "/sitecore/content/global"
             }
         ]
     }

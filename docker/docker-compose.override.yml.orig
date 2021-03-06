@@ -1,0 +1,201 @@
+version: "2.4"
+
+services:
+  # A servercore image with both the netcore and netframework SDKs.
+  # See Dockerfile for more details.
+  dotnetsdk:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
+    build:
+      context: ./build/dotnetsdk
+    scale: 0
+
+  # The solution build image is added here so it can be referenced as a build dependency
+  # for the images which use its output. Setting "scale: 0" means docker-compose will not
+  # include it in the running environment. See Dockerfile for more details.
+  solution:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
+    build:
+<<<<<<< HEAD
+      context: .
+=======
+      context: ..
+>>>>>>> main
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+        BUILD_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
+    depends_on:
+      - dotnetsdk
+    scale: 0
+<<<<<<< HEAD
+  
+  
+  # This is our custom image for an ASP.NET Core Rendering Host.
+  # If target is 'debug', it will use the SDK image as parent and run 'dotnet watch.'
+  # Otherwise, it's a standard ASP.NET Core container. See Dockerfile for details.
+  rendering:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-rendering:${VERSION:-latest}
+    build:
+      context: ./build/rendering
+      target: ${BUILD_CONFIGURATION}
+      args:
+        DEBUG_PARENT_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
+        SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
+    volumes:
+      - .\:C:\solution
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://*:80"
+      # These values add to/override ASP.NET Core configuration values.
+      # See rendering host Startup for details.
+      Sitecore__InstanceUri: "http://cm"
+      Sitecore__RenderingHostUri: "https://${RENDERING_HOST}"
+      Sitecore__EnableExperienceEditor: "true"
+    depends_on:
+      - solution
+      - cm
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rendering-secure.entrypoints=websecure"
+      - "traefik.http.routers.rendering-secure.rule=Host(`${RENDERING_HOST}`)"
+      - "traefik.http.routers.rendering-secure.tls=true"
+=======
+>>>>>>> main
+
+  traefik:
+    volumes:
+      - ./traefik:C:/etc/traefik
+    depends_on:
+      - rendering
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
+
+  mssql:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-mssql:${VERSION:-latest}
+    build:
+      context: ./build/mssql
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-mssql:${SITECORE_VERSION}
+        SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
+        HEADLESS_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sitecore-headless-services-xp1-assets:${HEADLESS_VERSION}          
+        CET_IMAGE: estockwellalpert/contentexporttool:${CET_VERSION}     
+        HEADLESS_SERVICES_IMAGE: ${HEADLESS_SERVICES_IMAGE}        
+    volumes:
+      - ${LOCAL_DATA_PATH}\mssql:c:\data
+    mem_limit: ${MEM_LIMIT_SQL:-2GB}
+    restart: always
+
+  solr:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-solr:${VERSION:-latest}
+    build:
+      context: ./build/solr
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}nonproduction/solr:8.4.0-${SITECORE_VERSION}
+    volumes:
+      - ${LOCAL_DATA_PATH}\solr:c:\data
+    mem_limit: ${MEM_LIMIT_SOLR:-1GB}
+    restart: always
+
+  # Some modules (like SXA) also require additions to the Solr image.
+  solr-init:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-solr-init:${VERSION:-latest}
+    build:
+      context: ./build/solr-init
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-solr-init:${SITECORE_VERSION}
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
+        
+  id:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-id:${VERSION:-latest}
+    build:
+      context: ./build/id
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-id:${SITECORE_VERSION}
+    volumes:
+      - ${HOST_LICENSE_FOLDER}:c:\license
+    environment:
+      SITECORE_LICENSE_LOCATION: c:\license\license.xml
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
+
+  cm:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-cm:${VERSION:-latest}
+    build:
+      context: ./build/cm
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-cm:${SITECORE_VERSION}
+        SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
+        SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
+        HEADLESS_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sitecore-headless-services-xp1-assets:${HEADLESS_VERSION}         
+        TOOLS_IMAGE: ${TOOLS_IMAGE}
+        MGMT_IMAGE: ${MGMT_IMAGE}
+        CET_IMAGE: estockwellalpert/contentexporttool:${CET_VERSION}
+        MANAGEMENT_SERVICES_IMAGE: ${MANAGEMENT_SERVICES_IMAGE}
+        HEADLESS_SERVICES_IMAGE: ${HEADLESS_SERVICES_IMAGE}
+    depends_on:
+      - solution
+    volumes:
+      - ${LOCAL_DEPLOY_PATH}\platform:C:\deploy
+      - ${LOCAL_DATA_PATH}\cm:C:\inetpub\wwwroot\App_Data\logs
+      - ${HOST_LICENSE_FOLDER}:c:\license
+    environment:
+      SITECORE_LICENSE_LOCATION: c:\license\license.xml
+    entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
+    mem_limit: ${MEM_LIMIT_CM:-4GB}
+    restart: always
+    labels:
+      - "traefik.http.middlewares.redirect-to-https.redirectScheme.scheme=https"
+      - "traefik.http.routers.cm.entrypoints=web"
+      - "traefik.http.routers.cm.rule=Host(`${CM_HOST}`)"
+      - "traefik.http.routers.cm.middlewares=redirect-to-https"
+
+  xconnect:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-xconnect:${VERSION:-latest}
+    build:
+      context: ./build/xconnect
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-xconnect:${SITECORE_VERSION}
+        # SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}        
+        TOOLS_IMAGE: ${TOOLS_IMAGE}
+    environment: 
+      SITECORE_LICENSE_LOCATION: C:\license
+    # depends_on:
+      # - solution      
+    volumes:
+      - ${HOST_LICENSE_FOLDER}:C:\license
+      - ${LOCAL_DEPLOY_PATH}\xconnect:C:\deploy
+    entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
+  #  mem_limit: ${MEM_LIMIT_ROLES:-1GB}
+
+  xdbsearchworker:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-xdbsearchworker:${VERSION:-latest}
+    build:
+      context: ./build/xdbsearchworker
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-xdbsearchworker:${SITECORE_VERSION}
+    volumes:
+      - ${HOST_LICENSE_FOLDER}:c:\license
+    environment: 
+      SITECORE_LICENSE_LOCATION: c:\license\
+    mem_limit: ${MEM_LIMIT_XDBSEARCH:-1GB}
+
+  xdbautomationworker:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-xdbautomationworker:${VERSION:-latest}
+    build:
+      context: ./build/xdbautomationworker
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-xdbautomationworker:${SITECORE_VERSION}
+    volumes:
+      - ${HOST_LICENSE_FOLDER}:c:\license
+    environment: 
+      SITECORE_LICENSE_LOCATION: c:\license\
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}
+
+  cortexprocessingworker:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-cortexprocessingworker:${VERSION:-latest}
+    build:
+      context: ./build/cortexprocessingworker
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-cortexprocessingworker:${SITECORE_VERSION}
+    volumes:
+      - ${HOST_LICENSE_FOLDER}:c:\license
+    environment: 
+      SITECORE_LICENSE_LOCATION: c:\license\
+    mem_limit: ${MEM_LIMIT_ROLES:-1GB}

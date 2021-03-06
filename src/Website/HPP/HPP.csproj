@@ -1,23 +1,19 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  
   <!--Added per: https://github.com/richardszalay/helix-publishing-pipeline/blob/master/README.md#publishing-on-build -->
   <PropertyGroup>
-      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
-      <PublishProfile>Local</PublishProfile>
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    <PublishProfile>Local</PublishProfile>
   </PropertyGroup>
-
   <!-- The rest can go into ProjectName.wpp.targets if you prefer -->
   <PropertyGroup>
-      <AutoPublish Condition="'$(AutoPublish)' == '' and '$(Configuration)' == 'Debug' and '$(BuildingInsideVisualStudio)' == 'true' and '$(PublishProfile)' != ''">true</AutoPublish>
-
-      <AutoPublishDependsOn Condition="'$(AutoPublish)' == 'true'">
+    <AutoPublish Condition="'$(AutoPublish)' == '' and '$(Configuration)' == 'Debug' and '$(BuildingInsideVisualStudio)' == 'true' and '$(PublishProfile)' != ''">true</AutoPublish>
+    <AutoPublishDependsOn Condition="'$(AutoPublish)' == 'true'">
           $(AutoPublishDependsOn);
           WebPublish
       </AutoPublishDependsOn>
   </PropertyGroup>
-
   <Target Name="AutoPublish" AfterTargets="Build" DependsOnTargets="$(AutoPublishDependsOn)">
   </Target>
   <PropertyGroup>
@@ -87,7 +83,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Directory.Build.props" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Web.config" />
@@ -99,6 +94,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Feature\Movies\code\Feature.Movies.csproj">
+      <Project>{4897bd00-cf7f-4f69-9f25-1824dfa1df4b}</Project>
+      <Name>Feature.Movies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\platform\Platform.csproj">
+      <Project>{816f099c-e14b-4468-9e34-87f993c6484d}</Project>
+      <Name>Platform</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Project\code\Project.Common.csproj">
       <Project>{895a6f82-7dfc-4a94-aa21-76662395eb58}</Project>
       <Name>Project.Common</Name>

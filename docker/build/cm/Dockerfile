@@ -6,12 +6,14 @@ ARG TOOLS_IMAGE
 ARG SPE_IMAGE
 ARG HEADLESS_IMAGE
 ARG MGMT_IMAGE
+ARG CET_IMAGE
 
 # FROM ${SOLUTION_IMAGE} as solution
 FROM ${TOOLS_IMAGE} as tools
 FROM ${SPE_IMAGE} as spe
 FROM ${HEADLESS_IMAGE} as headless
 FROM ${MGMT_IMAGE} as mgmt
+FROM ${CET_IMAGE} as cet
 
 FROM ${PARENT_IMAGE}
 
@@ -30,6 +32,9 @@ WORKDIR C:\inetpub\wwwroot
 COPY --from=spe \module\cm\content .\ 
 COPY --from=headless \module\cm\content .\
 COPY --from=mgmt \module\cm\content .\
+
+# Add CET module
+COPY --from=cet \module\cm\content .\	
 
  
 RUN `

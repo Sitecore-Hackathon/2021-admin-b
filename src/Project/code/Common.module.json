@@ -4,8 +4,8 @@
     "items": {
         "includes": [
             {
-                "name": "renderings",
-                "path": "/sitecore/layout/renderings/project/common"
+                "name": "layouts",
+                "path": "/sitecore/layout/layouts/project/common"
             }
         ]
     }

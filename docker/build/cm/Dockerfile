@@ -4,10 +4,12 @@ ARG PARENT_IMAGE
 ARG SOLUTION_IMAGE
 ARG TOOLS_IMAGE
 ARG SPE_IMAGE
+ARG CET_IMAGE
 
 FROM ${SOLUTION_IMAGE} as solution
 FROM ${TOOLS_IMAGE} as tools
 FROM ${SPE_IMAGE} as spe
+FROM ${CET_IMAGE} as cet
 
 FROM ${PARENT_IMAGE}
 
@@ -24,6 +26,9 @@ WORKDIR C:\inetpub\wwwroot
 
 # Add SPE module
 COPY --from=spe \module\cm\content .\
+
+# Add CET module
+COPY --from=cet \module\cm\content .\	
 
 # Copy solution website files
 COPY --from=solution /artifacts/platform/ ./

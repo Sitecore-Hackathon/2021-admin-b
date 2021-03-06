@@ -65,6 +65,7 @@ namespace Examples
                         .AddModelBoundView<ContentBlockModel>("ContentBlock")
                         .AddModelBoundView<NavigationModel>("Navigation")
                         .AddModelBoundView<Banner>("Banner")
+                        .AddModelBoundView<MovieModel>("Movies")
                         .AddDefaultPartialView("_ComponentNotFound");
                 })
                 // Includes forwarding of Scheme as X-Forwarded-Proto to the Layout Service, so that

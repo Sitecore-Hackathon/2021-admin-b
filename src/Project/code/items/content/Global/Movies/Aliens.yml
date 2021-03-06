@@ -1,0 +1,43 @@
+﻿---
+ID: "da70b79d-36c9-4f49-a372-7e285532a5e9"
+Parent: "735361f2-2c8f-4c89-b34f-dd3ed12a1de5"
+Template: "74b8bf55-467c-4a67-bf40-17a6810a617f"
+Path: /sitecore/content/Global/Movies/Aliens
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210306T185052Z
+    - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
+      Hint: __Owner
+      Value: |
+        sitecore\Admin
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "69eeaf84-7fb5-418d-b785-35951843920e"
+      Hint: Actors
+      Value: Sigourney Weaver
+    - ID: "6d3c7485-153b-45c0-b08e-4c1ea2b3229f"
+      Hint: Image
+      Value: "https://i.guim.co.uk/img/media/e16909014ff126f1eb2060ed99cf9a0c0f6ab45a/454_457_2331_1399/master/2331.jpg?width=1200&quality=85&auto=format&fit=max&s=40fffe2a8e68caa446f8a33cb4039333"
+    - ID: "8522784a-05b4-4644-b94d-8ef88628a2d1"
+      Hint: Title
+      Value: Aliens
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "d7d79590-dffd-4f16-9d47-a30e5ccddc6e"
+    - ID: "b44a61d2-e8f7-43c7-9ae5-68d247e270bb"
+      Hint: Year
+      Value: 1998
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210306T185146Z

@@ -137,7 +137,7 @@ services:
     isolation: ${ISOLATION}
     image: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-xconnect:${SITECORE_VERSION}
     ports:
-      - "8181:80"
+      - "8999:80"
     depends_on:
       mssql:
         condition: service_healthy

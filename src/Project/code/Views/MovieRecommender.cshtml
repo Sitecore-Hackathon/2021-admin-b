@@ -1,0 +1,76 @@
+﻿@using Feature.Movies.Models
+@model MovieModel
+
+<html>
+<head>
+    <title>Movie Recommendations</title>
+
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="~/css/moviestyles.css" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="~/js/moviescripts.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="header-section">
+            <h2>@Model.Intro</h2>
+
+            <div class="recommendation">
+                <span class="no-rec">
+                    Select some movies to get a recommendation
+                </span>
+
+                <div class="result">
+
+                    <div class="selection-info">
+                        @Model.RecommendedText
+                    </div>
+
+                    <div class="movie-picture">
+
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title"></span>
+
+                        <span class="movie-desc">
+
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="movie-grid">
+
+            @foreach (var movie in Model.Movies)
+            {
+                <div data-id="@movie.ID" data-title="@movie.Title" data-actors="@movie.Actors" class="movie-tab" style="background-image: url('@movie.Image')">
+                    <span class="title">
+                        @movie.Title
+                    </span>
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+    <div class="selection-bar">
+
+        <a href="javascript:void(0)" class="close-bar"></a>
+
+        <div class="movie-details">
+            <div class="movie-picture">
+
+            </div>
+
+            <span class="movie-title"></span>
+
+            <span class="movie-actors"></span>
+        </div>
+    </div>
+</body>
+</html>

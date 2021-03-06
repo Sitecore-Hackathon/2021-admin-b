@@ -71,17 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Directory.Build.props" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Feature\code\Feature.Banner.csproj">
-      <Project>{3859b194-ec39-4140-9ae3-4c88c0d11bb6}</Project>
-      <Name>Feature.Banner</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Project\code\Project.Common.csproj">
-      <Project>{895a6f82-7dfc-4a94-aa21-76662395eb58}</Project>
-      <Name>Project.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

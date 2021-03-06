@@ -9,7 +9,11 @@
             },
             {
                 "name": "layouts",
-                "path": "/sitecore/layout"
+                "path": "/sitecore/layout/renderings/feature"
+            },
+            {
+                "name": "layoutservice",
+                "path": "/sitecore/system/Modules/Layout Service/Rendering Contents Resolvers"
             }
         ]
     }

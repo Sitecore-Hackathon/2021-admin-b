@@ -9,7 +9,7 @@ using Sitecore.LayoutService.Configuration;
 using Sitecore.LayoutService.ItemRendering.ContentsResolvers;
 using Sitecore.Mvc.Presentation;
 
-namespace Examples.MovieService
+namespace HackPlatform.MovieService
 {
     public class MovieContentsResolver : RenderingContentsResolver
     {
@@ -20,18 +20,19 @@ namespace Examples.MovieService
         public override object ResolveContents(Rendering rendering, IRenderingConfiguration renderingConfig)
         {
             var contextItem = GetContextItem(rendering, renderingConfig);
-            var movieFolder = contextItem["Movie Location"];
 
-            if (String.IsNullOrEmpty(movieFolder))
-            {
-                movieFolder = "/sitecore/content/movies";
-            }
+            var intro = contextItem?["Intro"];
+            var recommendedText = contextItem?["RecommendedText"];
+
+            var movieFolder = "/sitecore/content/Global/Movies";
 
             var rootItem = Sitecore.Context.Database.GetItem(movieFolder);
             var movies = GetMovies(rootItem);
             return new
             {
-                Movies = movies
+                Movies = movies,
+                RecommendedText = recommendedText,
+                Intro = intro
             };
         }
 

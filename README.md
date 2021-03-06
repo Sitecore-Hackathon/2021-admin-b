@@ -1,7 +1,5 @@
 ![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
 
-# Sitecore Hackathon 2021
-
 ## Team name
 admin/b
 
@@ -40,30 +38,32 @@ Our project builds off of the Sitecore "Getting Started" Docker template which m
 ## Installation instructions
 ⟹ Write a short clear step-wise instruction on how to install your module.  
 
-If you've had this running before, make sure to run
-
-    cd docker
-    .\clean.ps1
     
 1. Rename \docker\env.user.sample to \docker\env.user to apply recommended memory settings. 
 
-    # Container memory limits
+    ```
     MEM_LIMIT_SQL=300MB
     MEM_LIMIT_CM=300MB
     MEM_LIMIT_SOLR=300MB
     MEM_LIMIT_ROLES=300MB
     MEM_LIMIT_XDBSEARCH=1GB
-    
-This file can all be used to set images and isolation to match OS settings.
-    
+    ```
+This file can also be used to set images and isolation to match OS settings.
+
     SITECORE_VERSION=10.1.0-2004
     ISOLATION=process
 
 2. Open the root folder using PowerShell with elevated access
-3. Start docker environment using `.\Start-Hackathon.ps1`
+3. Start Docker containers using `.\Start-Hackathon.ps1`. This will restore the Sitecore.CLI items, deserialize and publish. If any containers fail due to unhealthy dependencies, try waiting 60 seconds and running `.\Start-Hackathon.ps1` once more to ensure require resources are available. 
 4. ?? Open solution in Visual Studio and run build
 ...
-5. profit
+5. Navigate to https://cm.hack.localhost/sitecore and log in with admin/b 
+
+If you restart these steps, be sure to run this first:
+
+    cd docker
+    .\clean.ps1
+
 
 ### Configuration
 ⟹ If there are any custom configuration that has to be set manually then remember to add all details here.
@@ -74,7 +74,7 @@ _Remove this subsection if your entry does not require any configuration that is
 ⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
 
 ### Content Author Experience
-1. Navigate to cm.hack.localhost and login with admin/b
+1. Navigate to https://cm.hack.localhost/sitecore and login with admin/b
 2. Select the experience editor
 3. Select the top banner component and click the "Personalization" button
 4. Review the personalization conditions. Each condition takes a profiled 'Genre' as an input and provides a movie data source as an output. 
@@ -82,32 +82,18 @@ _Remove this subsection if your entry does not require any configuration that is
 
 ### End User Experience
 
-1. Navigate to cd.hack.localhost
+1. Navigate to https://cd.hack.localhost/
 2. Select up to 5 different movies (TODO: provide some concrete examples)
 3. Confirm that the top banner has updated with a recommendation matching your genre preferences
 
 TODO: screenshots. 
 
-Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
-
-![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
-
-You can embed images of different formats too:
-
-![Deal With It](docs/images/deal-with-it.gif?raw=true "Deal With It")
-
 ## Comments
 ⟹ If you'd like to make additional comments that is important for your module entry.
-
-
-### Deserialization, etc
-
-To create the environment, including deserializing items, just run .\Start-Hackathon.ps1.   This will restore the Sitecore.CLI items, deserialize and publish.
 
 ## TO DO List
 
 1. MSBUILD is commented out in solution Dockerfile, due to a build error. Fix this.  Workaround: publish HPP project manually.
-
 
 # Submission Requirements
 - MUST READ: **[Submission requirements](SUBMISSION_REQUIREMENTS.md)**

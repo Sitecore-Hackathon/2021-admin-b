@@ -101,7 +101,6 @@ span.movie-actors {
     width: 75%;
     max-width: 400px;
     margin: 0 auto;
-    margin-top: 40px;
     background-size: cover;
     padding-top: 48%;
 }
@@ -129,6 +128,22 @@ a.close-bar:after {
 
 a.close-bar:hover:after {
     color: red;
+}
+
+.movie-picture, .movie-info {
+    display: inline-block;
+}
+
+.movie-info {
+    width: 60%;
+    text-align: left;
+    padding: 20px;
+    vertical-align: bottom;
+    padding-bottom: 0;
+}
+
+.selection-info {
+    margin-bottom: 30px;
 }
 
 @media screen and (max-width: 767px) {

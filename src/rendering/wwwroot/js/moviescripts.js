@@ -34,12 +34,15 @@
         }
 
         var backgroundImg = "url(https://i.guim.co.uk/img/media/e16909014ff126f1eb2060ed99cf9a0c0f6ab45a/454_457_2331_1399/master/2331.jpg?width=1200&quality=85&auto=format&fit=max&s=40fffe2a8e68caa446f8a33cb4039333)"
-        var title = "Aliens";
+        var year = "1998";
+        var title = "Aliens (" + year + ")";
         var genre = "horror";
+        var desc = "Lorem ipsum...."
 
+        $(".result .selection-info").html(info);
         $(".result .movie-picture").css("background-image", backgroundImg);
         $(".result .movie-title").html(title);
-        $(".result .movie-info .genre").html(genre);
+        $(".result .movie-desc").html(desc);
 
         $(".no-rec").hide();
         $(".result").show();

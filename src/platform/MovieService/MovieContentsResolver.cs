@@ -44,6 +44,9 @@ namespace Examples.MovieService
                     Title = item["Title"],
                     Actors = item["Actors"],
                     Image = item["Image"],
+                    Runtime = item["Runtime"],
+                    Year = item["Year"],
+                    Description = item["Description"],
                     ID = item.ID.ToString()
                 });
         }

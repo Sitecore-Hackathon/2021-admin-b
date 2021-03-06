@@ -17,23 +17,25 @@
         <div class="header-section">
             <h2>@Model.Intro</h2>
 
-            <p class="recommendation">
+            <div class="recommendation">
                 <span class="no-rec">
                     Select some movies to get a recommendation
                 </span>
 
                 <div class="result">
+
+                    <div class="selection-info"></div>
+
                     <div class="movie-picture">
 
                     </div>
+                    <div class="movie-info">
+                        <span class="movie-title"></span>
 
-                    <span class="movie-title"></span>
-
-                    <span class="movie-info">
-                        @Html.Raw(Model.RecommendedText)
-                    </span>
+                        <span class="movie-desc"></span>
+                    </div>
                 </div>
-            </p>
+            </div>
         </div>
 
         <div class="movie-grid">

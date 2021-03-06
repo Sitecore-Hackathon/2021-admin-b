@@ -36,4 +36,8 @@ Buidling can be done by deploying the Website\HPP project.  This will deploy all
 
 To create the environment, including deserializing items, just run .\Start-Hackathon.ps1.   This will restore the Sitecore.CLI items, deserialize and publish.
 
+## TO DO List
+
+1. MSBUILD is commented out in solution Dockerfile, due to a build error. Fix this.  Workaround: publish HPP project manually.
+
 ### ⟹ [Insert your documentation here](ENTRYFORM.md) <<

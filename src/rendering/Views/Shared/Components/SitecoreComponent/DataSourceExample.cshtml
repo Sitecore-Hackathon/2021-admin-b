@@ -1,0 +1,11 @@
+﻿@model MyProject.Models.DataSourceExampleModel
+
+<h3>@Model.Title.Value</h3>
+<sc-text asp-for="Body"></sc-text>
+<div>
+    <sc-img asp-for="Image" />
+</div>
+<p>
+    <a asp-for="Promo">My Link</a>
+</p>
+<p asp-for="Date" date-format="D"></p>

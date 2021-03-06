@@ -1,0 +1,159 @@
+﻿.main {
+    max-width: 1142px;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
+.header-section {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie-tab {
+    width: 25%;
+    height: 150px;
+    display: inline-block;
+    background-size: cover;
+    cursor: pointer;
+    position: relative;
+}
+
+    .movie-tab.selected:after {
+        content: "";
+        background: green;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: .5;
+    }
+
+    .movie-tab:hover:before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        opacity: .3;
+        position: absolute;
+    }
+
+.no-rec {
+    font-style: italic;
+}
+
+.selection-bar {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: white;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+    width: 400px;
+    max-width: 80%;
+    height: 100%;
+    z-index: 10;
+}
+
+span.title {
+    background: rgba(0,0,0,.4);
+    padding: 8px 12px;
+    color: white;
+    box-sizing: content-box;
+    position: relative;
+    top: 16px;
+    margin-left: 8px;
+    font-size: 20px;
+    font-family: sans-serif;
+    position: absolute;
+    z-index: 9;
+}
+
+* {
+    font-family: sans-serif;
+}
+
+.movie-details {
+    text-align: center;
+}
+
+span.movie-title {
+    display: block;
+    margin: 20px 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+span.movie-actors {
+    text-align: left;
+    display: block;
+}
+
+.movie-picture {
+    display: block;
+    width: 75%;
+    max-width: 400px;
+    margin: 0 auto;
+    background-size: cover;
+    padding-top: 48%;
+}
+
+.result {
+    display: none;
+}
+
+    .result .movie-picture {
+        width: 300px;
+        padding-top: 16%;
+    }
+
+a.close-bar:after {
+    text-decoration: none;
+    position: absolute;
+    right: 30px;
+    padding: 16px;
+    font-family: fontawesome;
+    content: "\f057";
+    color: #aaa;
+    font-size: 32px;
+    top: 0;
+}
+
+a.close-bar:hover:after {
+    color: red;
+}
+
+.movie-picture, .movie-info {
+    display: inline-block;
+}
+
+.movie-info {
+    width: 60%;
+    text-align: left;
+    padding: 20px;
+    vertical-align: bottom;
+    padding-bottom: 0;
+}
+
+.selection-info {
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 767px) {
+    .movie-tab {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .movie-tab {
+        width: 100%;
+    }
+}

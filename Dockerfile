@@ -25,7 +25,7 @@ WORKDIR /build
 COPY --from=nuget-prep ./nuget ./
 
 # Restore NuGet packages
-RUN nuget restore -Verbosity quiet
+RUN nuget restore # -Verbosity quiet
 
 # Copy remaining source code
 COPY src/ ./src/
@@ -38,7 +38,11 @@ RUN dotnet publish -c $env:BUILD_CONFIGURATION -o /build/rendering --no-restore
 RUN mkdir ./docker/deploy/platform
 
 # Build the solution to generate build artifacts
-RUN Get-ChildItem *.sln | %{  msbuild $_.FullName /p:Configuration=$env:BUILD_CONFIGURATION /m /p:DeployOnBuild=true /p:IsLocalDockerDeploy=true }
+
+#  RUN Get-ChildItem *.sln | %{  msbuild $_.FullName /p:Configuration=$env:BUILD_CONFIGURATION /m /p:DeployOnBuild=true /p:IsLocalDockerDeploy=true }  ## THIS DOESN'T FAIL IF BUILD FAILS! 
+
+## TODO Uncomment this.  Currently failing, so manual build is required.
+#  RUN msbuild hack.sln /p:Configuration=$env:BUILD_CONFIGURATION /m /p:DeployOnBuild=true /p:IsLocalDockerDeploy=true
 
 # Save the artifacts for copying into other images (see 'cm' and 'rendering' Dockerfiles).
 FROM mcr.microsoft.com/windows/nanoserver:1809

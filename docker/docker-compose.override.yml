@@ -12,19 +12,19 @@ services:
   # The solution build image is added here so it can be referenced as a build dependency
   # for the images which use its output. Setting "scale: 0" means docker-compose will not
   # include it in the running environment. See Dockerfile for more details.
-   solution:
-     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
-     build:
-       context: ../
-       args:
-         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
-         BUILD_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
-     depends_on:
-       - dotnetsdk
-     scale: 0
+  solution:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
+    build:
+      context: .
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+        BUILD_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
+    depends_on:
+      - dotnetsdk
+    scale: 0
   
   
-   # This is our custom image for an ASP.NET Core Rendering Host.
+  # This is our custom image for an ASP.NET Core Rendering Host.
   # If target is 'debug', it will use the SDK image as parent and run 'dotnet watch.'
   # Otherwise, it's a standard ASP.NET Core container. See Dockerfile for details.
   rendering:
@@ -122,7 +122,7 @@ services:
         CET_IMAGE: estockwellalpert/contentexporttool:${CET_VERSION}
         MANAGEMENT_SERVICES_IMAGE: ${MANAGEMENT_SERVICES_IMAGE}
         HEADLESS_SERVICES_IMAGE: ${HEADLESS_SERVICES_IMAGE}
-     depends_on:
+    depends_on:
       - solution
     volumes:
       - ${LOCAL_DEPLOY_PATH}\platform:C:\deploy

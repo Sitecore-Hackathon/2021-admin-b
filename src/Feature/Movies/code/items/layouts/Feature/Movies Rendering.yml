@@ -10,6 +10,9 @@ SharedFields:
 - ID: "1a7c85e5-dc0b-490d-9187-bb1dbcb4c72f"
   Hint: Datasource Template
   Value: /sitecore/templates/Feature/Movies/Movie Interface
+- ID: "b0b15510-b138-470e-8f33-8da2e228aafe"
+  Hint: Rendering Contents Resolver
+  Value: "{B4883D3F-D38B-4F32-9DEA-6EEFA973AA84}"
 - ID: "b5b27af1-25ef-405c-87ce-369b3a004016"
   Hint: Datasource Location
   Value: ./components
@@ -23,11 +26,11 @@ Languages:
       Value: 20210306T101912Z
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "c6a2be23-d93e-4b7f-8087-5f3a942b5e26"
+      Value: "1772bf6e-2980-41e2-8559-2572aeee7e71"
     - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
       Hint: __Updated by
       Value: |
         sitecore\Admin
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20210306T102324Z
+      Value: 20210306T105748Z

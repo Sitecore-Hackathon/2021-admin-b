@@ -30,6 +30,10 @@ RUN nuget restore -Verbosity quiet
 # Copy remaining source code
 COPY src/ ./src/
 
+# Build the rendering host
+WORKDIR /build/src/rendering
+RUN dotnet publish -c $env:BUILD_CONFIGURATION -o /build/rendering --no-restore
+
 # Ensure deploy folder exist to prevent errors on initial build
 RUN mkdir ./docker/deploy/platform
 
@@ -40,3 +44,4 @@ RUN Get-ChildItem *.sln | %{  msbuild $_.FullName /p:Configuration=$env:BUILD_CO
 FROM mcr.microsoft.com/windows/nanoserver:1809
 WORKDIR /artifacts
 COPY --from=builder /build/docker/deploy/ ./
+COPY --from=builder /build/rendering ./rendering/

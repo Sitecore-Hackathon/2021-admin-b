@@ -57,3 +57,19 @@ _ReSharper*/
 .vs/
 #Nuget packages folder
 packages/
+
+###################
+# From Sitecore CLI
+
+# may contain OAuth secrets, do not commit
+.sitecore/user.json
+
+# package reference cache
+.sitecore/package-cache
+
+# Ephemeral index caches used by serialization, do not commit
+.scindex
+
+# Don't commit packages
+*.itempackage
+*.sicpackage

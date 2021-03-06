@@ -1,0 +1,14 @@
+{
+    "namespace": "Feature.Movies",
+    "references": [""],
+    "items": {
+        "includes": [
+            {
+                "name": "templates",
+                "path": "/sitecore/templates/feature/movies"
+            }
+        ]
+    }
+     
+
+}

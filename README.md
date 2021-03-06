@@ -6,20 +6,17 @@
 - [Starter kit instructions](STARTERKIT_INSTRUCTIONS.md)
   
   
-### Hello AdminB!
+### Admin/B Team Instructions
 
-Updated for 10.1!  Just so Adam can see those cool icons: https://velir.slack.com/archives/CSZGR0Q3T/p1614910430012400
 
-(And so we dont' get disqualified....)
+#### 10.1
 
 If you've had this running before, make sure to run
 
     cd docker
     .\clean.ps1
 
-This will get rid of all the 10.0.1 gooey bits that would gum up 10.1.
-
-Also, I've been running into some memory issues (sign of being near 60), so I've put these settings in a **.env.user** file
+Also, you may want to use these settings in **docker\.env.user** if images are randomly becoming unhealthy. 
 
     # Container memory limits
     MEM_LIMIT_SQL=300MB
@@ -27,11 +24,16 @@ Also, I've been running into some memory issues (sign of being near 60), so I've
     MEM_LIMIT_SOLR=300MB
     MEM_LIMIT_ROLES=300MB
 
-Erica, since you are on 2004, you can set your fancy
+This file can all be used to set images and isolation to match OS settings.
     
     SITECORE_VERSION=10.1.0-2004
-    ISOLATION=hyperv
+    ISOLATION=process
+ 
+#### Build
+Buidling can be done by deploying the Website\HPP project.  This will deploy all projects to the CM and CD images, via the **docker\deploy\project** folder. If new modules are added, they should be added as refernces to the HPP project.
 
-settings in your .env.user file.  (Actually you may be able to switch to ISOLATION=process to get your environment to _rip_. See this: https://velir.slack.com/archives/CMUK8EG0Y/p1614884238030700?thread_ts=1614008156.004000&cid=CMUK8EG0Y though )
+#### TO DO
+Set up Sitecore CLI, serialization.
+Set up sample content (e.g from Helix Examples.)
 
 ### ⟹ [Insert your documentation here](ENTRYFORM.md) <<

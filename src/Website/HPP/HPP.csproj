@@ -74,6 +74,12 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Project\code\Project.Common.csproj">
+      <Project>{895a6f82-7dfc-4a94-aa21-76662395eb58}</Project>
+      <Name>Project.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

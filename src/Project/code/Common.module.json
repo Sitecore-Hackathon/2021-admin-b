@@ -1,0 +1,14 @@
+{
+    "namespace": "Project.Common",
+    "references": ["Foundation.*", "Feature.*"],
+    "items": {
+        "includes": [
+            {
+                "name": "content",
+                "path": "/sitecore/content/global"
+            }
+        ]
+    }
+     
+
+}

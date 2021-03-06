@@ -1,5 +1,3 @@
-#Requires -RunAsAdministrator
-
 Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\tools\StarterKitCLi") -Force
 
 Show-HackLogo
@@ -17,9 +15,11 @@ if (Test-IsEnvInitialized -FilePath ".\docker\.env" ) {
         }
         Initialize-HostNames $hostDomain
         Start-Docker -Url "$($hostDomain)/sitecore" -Build
+        Invoke-CliCommands
         exit 0
     }
     Start-Docker -Url "$(Get-EnvValueByKey "CM_HOST")/sitecore"
+    Invoke-CliCommands
     exit 0
 }
 
@@ -127,3 +127,5 @@ Write-Host @"
 
 "@ -ForegroundColor Yellow
 Write-Host "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" -ForegroundColor Magenta
+
+

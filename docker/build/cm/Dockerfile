@@ -31,5 +31,11 @@ COPY --from=spe \module\cm\content .\
 COPY --from=headless \module\cm\content .\
 COPY --from=mgmt \module\cm\content .\
 
+ 
+RUN `
+     move-item -Path App_Config\sitecore\Services.GraphQL\sitecore.services.graphql.content.core.config.example -Destination App_Config\sitecore\Services.GraphQL\sitecore.services.graphql.content.core.config; `
+     move-item -Path App_Config\sitecore\Services.GraphQL\sitecore.services.graphql.content.master.config.example  -Destination  App_Config\sitecore\Services.GraphQL\sitecore.services.graphql.content.master.config; `
+     move-item -Path App_Config\sitecore\Services.GraphQL\sitecore.services.graphql.content.web.config.example  -Destination  App_Config\sitecore\Services.GraphQL\sitecore.services.graphql.content.web.config
+
 # Copy solution website files
 # COPY --from=solution /artifacts/platform/ ./  TODO FIX

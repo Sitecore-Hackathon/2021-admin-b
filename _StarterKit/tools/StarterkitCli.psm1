@@ -272,6 +272,36 @@ function Initialize-HostNames {
     }
 }
 
+function Invoke-CliCommands {
+
+    Write-Host "Installing CLI tools."  -ForegroundColor Cyan
+    dotnet tool restore
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Unable to restore dotnet CLI tools. See logs above."
+    }
+    
+    
+    Write-Host "Login to enable scripted deserialization and publish."  -ForegroundColor Cyan
+    dotnet sitecore login --cm https://cm.hack.localhost --auth https://id.hack.localhost --allow-write true
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Unable to log into Sitecore, did the Sitecore environment start correctly? See logs above."
+    }
+    
+    Write-Host "Deserialized content."  -ForegroundColor Cyan
+    dotnet sitecore ser push
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Serialization push failed, see errors above."
+    }
+    
+    Write-Host "Publishing content." -ForegroundColor Cyan
+    dotnet sitecore publish
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Item publish failed, see errors above."
+    }
+
+
+}
+
 function Rename-SolutionFile {
     param (
         [Parameter(Mandatory = $true)]

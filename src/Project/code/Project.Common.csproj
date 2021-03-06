@@ -95,15 +95,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\MvcLayout.cshtml" />
-    <Content Include="Common.module.json" />
-    <Fakes Include="Fakes\System.Web.Mvc.fakes" />
-    <None Include="Web.config" />
+    <None Include="Common.module.json" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\web.config" />
+    <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

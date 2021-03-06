@@ -1,0 +1,14 @@
+{
+    "namespace": "Project.Common",
+    "references": [""],
+    "items": {
+        "includes": [
+            {
+                "name": "renderings",
+                "path": "/sitecore/layout/renderings/project/common"
+            }
+        ]
+    }
+     
+
+}

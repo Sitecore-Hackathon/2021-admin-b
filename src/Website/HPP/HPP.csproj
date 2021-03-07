@@ -89,6 +89,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <Content Include="logo.png" />
     <Content Include="movies.html" />
     <Content Include="Web.config" />
     <None Include="Web.Debug.config">

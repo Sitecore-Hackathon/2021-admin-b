@@ -1,0 +1,309 @@
+<html>
+<head>
+    <title>Movie Recommendations</title>
+
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <style>
+
+        .main {
+            max-width: 1142px;
+            width: 100%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .header-section {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .movie-grid {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .movie-tab {
+            width: 25%;
+            height: 150px;
+            display: inline-block;
+            background-size: cover;
+            cursor: pointer;
+            position: relative;
+        }
+
+            .movie-tab.selected:after {
+                content: "";
+                background: green;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: .5;
+            }
+
+            .movie-tab:hover:before {
+                content: "";
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                opacity: .3;
+                position: absolute;
+            }
+
+        .no-rec {
+            font-style: italic;
+        }
+
+        .selection-bar {
+            display: none;
+            position: fixed;
+            right: 0;
+            top: 0;
+            background: white;
+            border-left: 1px solid #ccc;
+            padding: 20px;
+            width: 400px;
+            max-width: 80%;
+            height: 100%;
+            z-index:10;
+        }
+
+        span.title {
+            background: rgba(0,0,0,.4);
+            padding: 8px 12px;
+            color: white;
+            box-sizing: content-box;
+            position: relative;
+            top: 16px;
+            margin-left: 8px;
+            font-size: 20px;
+            font-family: sans-serif;
+            position: absolute;
+            z-index: 9;
+        }
+
+        * {
+            font-family: sans-serif;
+        }
+
+        .movie-details {
+            text-align: center;
+        }
+
+        span.movie-title {
+            display: block;
+            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        span.movie-actors {
+            text-align: left;
+            display: block;
+        }
+
+        .movie-picture {
+            display: block;
+            width: 75%;
+            max-width:400px;
+            margin: 0 auto;
+            background-size: cover;
+            padding-top: 48%;
+        }
+
+        .result{
+            display:none;
+        }
+
+        .result .movie-picture{
+            width:300px;
+            padding-top:16%;
+        }
+
+        a.close-bar:after {
+            text-decoration: none;
+            position: absolute;
+            right: 30px;
+            padding: 16px;
+            font-family: fontawesome;
+            content: "\f057";
+            color: #aaa;
+            font-size: 32px;
+            top: 0;
+        }
+
+        a.close-bar:hover:after {
+            color: red;
+        }
+
+        .movie-picture, .movie-info {
+            display: inline-block;
+        }
+
+        .movie-info {
+            width: 60%;
+            text-align: left;
+            padding: 20px;
+            vertical-align: bottom;
+            padding-bottom: 0;
+        }
+
+        .selection-info {
+            margin-bottom: 30px;
+        }
+
+        @media screen and (max-width: 767px) {
+            .movie-tab {
+                width: 50%;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            .movie-tab {
+                width: 100%;
+            }
+        }
+    </style>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {      
+            $(".movie-tab").on("click", function () {
+
+                if ($(this).hasClass("selected")) {
+                    $(this).removeClass("selected");
+
+                    if ($(".movie-tab.selected").length == 0 && $(".selection-bar").is(":visible")) {
+                        $(".selection-bar").animate({ width: 'toggle' }, 400);
+                    }
+                } else {
+                    $(this).addClass("selected");
+
+                    showMovieDetails($(this));
+
+                    if (!($(".selection-bar").is(":visible"))) {
+                        $(".selection-bar").animate({ width: 'toggle' }, 400);
+                    }
+
+                    if ($(".movie-tab.selected").length >= 3) {
+                        getRecommendation();
+                    }
+                }
+            });
+
+            $(".close-bar").on("click", function () {
+                $(".selection-bar").animate({ width: 'toggle' }, 400);
+            });
+
+            function getRecommendation() {
+                // call api with selected movie titles
+
+                if (($(".selection-bar").is(":visible"))) {
+                    $(".selection-bar").animate({ width: 'toggle' }, 400);
+                }
+
+                var backgroundImg = "url(https://i.guim.co.uk/img/media/e16909014ff126f1eb2060ed99cf9a0c0f6ab45a/454_457_2331_1399/master/2331.jpg?width=1200&quality=85&auto=format&fit=max&s=40fffe2a8e68caa446f8a33cb4039333)"
+                var title = "Aliens (1998)";
+                var info = "We chose this movie for you because of your interest in <b>horror</b>";
+                var desc = "Lorem ipsum overview text...";
+
+                $(".result .selection-info").html(info);
+                $(".result .movie-picture").css("background-image", backgroundImg);
+                $(".result .movie-title").html(title);
+                $(".result .movie-desc").html(desc);
+                
+
+                $(".no-rec").hide();
+                $(".result").show();
+            }
+
+            function showMovieDetails(el) {
+                var backgroundImg = $(el).css("background-image");
+                $(".selection-bar .movie-picture").css("background-image", backgroundImg);
+                $(".selection-bar .movie-title").html($(el).attr("data-title"));
+                $(".selection-bar .movie-actors").html($(el).attr("data-actors"));
+            }
+        })
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="header-section">
+            <h2>Our recommendation to you is...</h2>
+
+            <div class="recommendation">
+                <span class="no-rec">
+                    Select some movies to find out
+                </span>
+
+                <div class="result">
+
+                    <div class="selection-info"></div>
+
+                    <div class="movie-picture">
+
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title"></span>
+
+                        <span class="movie-desc"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="movie-grid">
+            <div data-title="Training Day" data-actors="Ethan Hawke, Denzel Washington, Scott Glenn, Cliff Curtis, Dr. Dre, Snoop Dogg, and Eva Mendes" class="movie-tab" style="background-image: url('https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/01/training-day-denzel-washington.jpg?q=50&fit=crop&w=480&dpr=1.5')">
+                <span class="title">
+                    Training Day
+                </span>
+            </div>
+
+            <div class="movie-tab" data-actors="Christian Bale, Michael Caine, Katie Holmes, Liam Neeson, Gary Oldman, Cillian Murphy, Morgan Freeman, and Ken Watanabe" data-title="Batman Begins" style="background-image: url('https://static1.colliderimages.com/wordpress/wp-content/uploads/2020/03/batman-begins-christian-bale.jpg?q=50&fit=crop&w=480&dpr=1.5')">
+                <span class="title">
+                    Batman Begins
+                </span>
+            </div>
+
+            <div class="movie-tab" data-title="The Dark Night" data-actors="Christian Bale, Heath Ledger, Maggie Gyllenhaal, Aaron Eckhart, Gary Oldman, Morgan Freeman, and Michael Caine" style="background-image: url('https://static1.colliderimages.com/wordpress/wp-content/uploads/2020/08/joker-heath-ledger-the-dark-knight-social-feature.jpg?q=50&fit=crop&w=480&dpr=1.5')">
+                <span class="title">
+                    Third Movie
+                </span>
+            </div>
+
+            <div class="movie-tab" data-title="Shutter Island" data-actors="Leonardo DiCaprio, Mark Ruffalo, Ben Kingsley, Michelle Williams, Emily Mortimer, Patricia Clarkson, and Max von Sydow" style="background-image: url('https://static1.colliderimages.com/wordpress/wp-content/uploads/2019/10/shutter-island.jpg?q=50&fit=crop&w=480&dpr=1.5')">
+                <span class="title">
+                    Shutter Island
+                </span>
+            </div>
+
+            <div class="movie-tab" data-title="ParaNormal" data-actors="Kodi Smit-McPhee, Casey Affleck, Anna Kendrick, John Goodman, Alex Borstein, Leslie Man, Jeff Garlin, Elaine Stritch, and Tucker Albrizzi" style="background-image: url('https://static1.colliderimages.com/wordpress/wp-content/uploads/paranorman-cast.jpg?q=50&fit=crop&w=480&dpr=1.5')">
+                <span class="title">
+                    ParaNorman
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="selection-bar">
+
+        <a href="javascript:void(0)" class="close-bar"></a>
+
+        <div class="movie-details">
+            <div class="movie-picture">
+
+            </div>
+
+            <span class="movie-title"></span>
+
+            <span class="movie-actors"></span>
+        </div>
+    </div>
+</body>
+</html>
